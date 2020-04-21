@@ -11,6 +11,7 @@ class GildedRose
   end
 
   private
+
 #Types of items
   def check_type(item)
     if item.name == "Aged Brie"
@@ -19,7 +20,7 @@ class GildedRose
       pass(item)
     elsif item.name == "Sulfuras, Hand of Ragnaros"
       sulfuras(item)
-    elsif item.name.start_with?('Conjured')
+    elsif item.name.start_with?("Conjured")
       conjured(item)
     else
       regular(item)
@@ -28,7 +29,7 @@ class GildedRose
 
 #Logic for Aged Brie
   def brie(item)
-    item.sell_in!=0 ? quality_plus(item, 1) : quality_minus(item, 2)
+    quality_plus(item, 1)
     sell_in_minus(item)
   end
 
@@ -83,6 +84,7 @@ class GildedRose
   def quality_zero(item)
     item.quality = 0
   end
+
 #sell in
   def sell_in_minus(item)
     item.sell_in -= 1 if item.sell_in > 0

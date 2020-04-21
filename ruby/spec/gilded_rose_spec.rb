@@ -9,28 +9,10 @@ describe GildedRose do
       expect(items[0].name).to eq "foo"
     end
 
-    it "increases the quality of 'Aged Brie'" do
-      items = [Item.new("Aged Brie", 5, 5)]
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 6
-    end
-
     it "decreases the quality of normal item" do
       items = [Item.new("The Complete Works of Ronald McDonald", 1, 1)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 0
-    end
-
-    it "'Sulfuras, Hand of Ragnaros' does not decrease in quality" do
-      items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 10)]
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 10
-    end
-
-    it "'Sulfuras, Hand of Ragnaros' does not decrease sell in number" do
-      items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 10)]
-      GildedRose.new(items).update_quality()
-      expect(items[0].sell_in).to eq 1
     end
 
     it "quality doesn't fall below 0" do
@@ -49,6 +31,28 @@ describe GildedRose do
       items = [Item.new("Haunted Toenail Clippings", 0, 50)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 48
+    end
+
+    context 'Aged Brie' do
+      it "increases the quality of 'Aged Brie'" do
+        items = [Item.new("Aged Brie", 5, 5)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 6
+      end
+    end
+
+    context 'Sulfuras, Hand of Ragnaros' do
+      it "'Sulfuras, Hand of Ragnaros' does not decrease in quality" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 10)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 10
+      end
+  
+      it "'Sulfuras, Hand of Ragnaros' does not decrease sell in number" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 10)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 1
+      end
     end
 
     context 'Backstage passes to a TAFKAL80ETC concert' do
