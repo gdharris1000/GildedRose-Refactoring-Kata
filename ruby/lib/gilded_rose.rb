@@ -25,82 +25,65 @@ class GildedRose
       regular(item)
     end
   end
+
 #Logic for Aged Brie
   def brie(item)
-    item.sell_in!=0 ? quality_plus_one(item) : quality_minus_two(item)
+    item.sell_in!=0 ? quality_plus(item, 1) : quality_minus(item, 2)
     sell_in_minus(item)
   end
+
 #Logic for Backstage passes to a TAFKAL80ETC concert
   def pass(item)
     if item.sell_in < 10 && item.sell_in > 5
-      quality_plus_two(item)
+      quality_plus(item, 2)
     elsif item.sell_in < 5 && item.sell_in > 0
-      quality_plus_three(item)
+      quality_plus(item, 3)
     elsif item.sell_in == 0
       quality_zero(item)
     else
-      quality_plus_one(item)
+      quality_plus(item, 1)
     end
   end
+
  #Logic for Sulfuras, Hand of Ragnaros
   def sulfuras(item)
   end
+
 #Logic for regular items
   def regular(item)
-    item.sell_in!=0 ? quality_minus_one(item) : quality_minus_two(item)
+    item.sell_in!=0 ? quality_minus(item, 1) : quality_minus(item, 2)
     sell_in_minus(item)
   end
+
 #Logic for Conjured items
   def conjured(item)
-    item.sell_in!=0 ? quality_minus_two(item) : quality_minus_four(item)
+    item.sell_in!=0 ? quality_minus(item, 2) : quality_minus(item, 4)
     sell_in_minus(item)
   end
 
 #------Update Item Properties------
-  def quality_plus_one(item)
-    item.quality += 1 if item.quality < 50
-  end
 
-  def quality_plus_two(item)
-    if (item.quality + 2) > 50
+#quality
+  def quality_plus(item, value)
+    if (item.quality + value) > 50
       item.quality = 50
     else
-      item.quality += 2
+      item.quality += value
     end
   end
 
-  def quality_plus_three(item)
-    if (item.quality + 3) > 50
-      item.quality = 50
-    else
-      item.quality += 3
-    end
-  end
-
-  def quality_minus_one(item)
-    item.quality -= 1 if item.quality > 0
-  end
-
-  def quality_minus_two(item)
-    if (item.quality - 2) < 0
+  def quality_minus(item, value)
+    if (item.quality - value) < 0
       quality_zero(item)
     else
-      item.quality -= 2
-    end
-  end
-
-  def quality_minus_four(item)
-    if (item.quality - 4) < 0
-      quality_zero(item)
-    else
-      item.quality -= 4
+      item.quality -= value
     end
   end
 
   def quality_zero(item)
     item.quality = 0
   end
-
+#sell in
   def sell_in_minus(item)
     item.sell_in -= 1 if item.sell_in > 0
   end
