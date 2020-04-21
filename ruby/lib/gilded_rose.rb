@@ -83,15 +83,15 @@ class GildedRose
 
   def quality_minus_two(item)
     if (item.quality - 2) < 0
-      item.quality = 0
+      quality_zero(item)
     else
       item.quality -= 2
     end
   end
 
   def quality_minus_four(item)
-    if (item.quality - 4) > 0
-      item.quality == 0
+    if (item.quality - 4) < 0
+      quality_zero(item)
     else
       item.quality -= 4
     end
