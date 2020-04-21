@@ -9,10 +9,10 @@ describe GildedRose do
       expect(items[0].name).to eq "foo"
     end
 
-    it "increases the quality of 'Aged Brie" do
-      items = [Item.new("Aged Brie", 1, 1)]
+    it "increases the quality of 'Aged Brie'" do
+      items = [Item.new("Aged Brie", 5, 5)]
       GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 2
+      expect(items[0].quality).to eq 6
     end
 
     it "decreases the quality of normal item" do
