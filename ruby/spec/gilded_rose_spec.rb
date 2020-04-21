@@ -72,6 +72,14 @@ describe GildedRose do
       end
 
     end
+
+    context 'Conjured items' do
+      it 'quality degrates by 2' do
+        items = [Item.new("Conjured Raddish", 3, 10)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 8
+      end
+    end
     
 
   end
