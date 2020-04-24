@@ -31,20 +31,24 @@ class GildedRose
 
 #Logic for Aged Brie
   def brie(item)
-    quality_plus(item, 1)
+    set_quality(item, 1)
+    # quality_plus(item, 1)
     sell_in_minus(item)
   end
 
 #Logic for Backstage passes to a TAFKAL80ETC concert
   def pass(item)
     if item.sell_in <= 10 && item.sell_in > 5
-      quality_plus(item, 2)
+      # quality_plus(item, 2)
+      set_quality(item, 2)
     elsif item.sell_in <= 5 && item.sell_in > 0
-      quality_plus(item, 3)
+      # quality_plus(item, 3)
+      set_quality(item, 3)
     elsif item.sell_in == 0
-      quality_zero(item)
+      set_quality_zero(item)
     else
-      quality_plus(item, 1)
+      # quality_plus(item, 1)
+      set_quality(item, 1)
     end
   end
 
@@ -54,36 +58,47 @@ class GildedRose
 
 #Logic for regular items
   def regular(item)
-    item.sell_in!=0 ? quality_minus(item, 1) : quality_minus(item, 2)
+    item.sell_in!=0 ? set_quality(item, -1) : set_quality(item, -2)
     sell_in_minus(item)
   end
 
 #Logic for Conjured items
   def conjured(item)
-    item.sell_in!=0 ? quality_minus(item, 2) : quality_minus(item, 4)
+    item.sell_in!=0 ? set_quality(item, -2) : set_quality(item, -4)
     sell_in_minus(item)
   end
 
 #------Update Item Properties------
 
 #quality
-  def quality_plus(item, value)
+
+  def set_quality(item, value)
     if (item.quality + value) > 50
       item.quality = 50
+    elsif (item.quality + value) < 0
+      set_quality_zero(item)
     else
       item.quality += value
     end
   end
 
-  def quality_minus(item, value)
-    if (item.quality - value) < 0
-      quality_zero(item)
-    else
-      item.quality -= value
-    end
-  end
+  # def quality_plus(item, value)
+  #   if (item.quality + value) > 50
+  #     item.quality = 50
+  #   else
+  #     item.quality += value
+  #   end
+  # end
 
-  def quality_zero(item)
+  # def quality_minus(item, value)
+  #   if (item.quality - value) < 0
+  #     set_quality_zero(item)
+  #   else
+  #     item.quality -= value
+  #   end
+  # end
+
+  def set_quality_zero(item)
     item.quality = 0
   end
 
