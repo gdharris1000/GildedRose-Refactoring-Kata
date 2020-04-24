@@ -1,3 +1,5 @@
+require 'item'
+
 class GildedRose
 
   def initialize(items)
@@ -35,9 +37,9 @@ class GildedRose
 
 #Logic for Backstage passes to a TAFKAL80ETC concert
   def pass(item)
-    if item.sell_in < 10 && item.sell_in > 5
+    if item.sell_in <= 10 && item.sell_in > 5
       quality_plus(item, 2)
-    elsif item.sell_in < 5 && item.sell_in > 0
+    elsif item.sell_in <= 5 && item.sell_in > 0
       quality_plus(item, 3)
     elsif item.sell_in == 0
       quality_zero(item)
@@ -93,16 +95,3 @@ class GildedRose
 
 end
 
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
-  end
-end
